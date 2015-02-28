@@ -4,11 +4,27 @@
  * and open the template in the editor.
  */
 package rhyming.dictionary;
-
+import java.util.*;
 /**
  *
  * @author Alain
  */
 public class Word {
-    
+    private String word;
+    private ArrayList<Phoneme> phonemes;
+        
+        public Word(String w, ArrayList<Phoneme> p)
+        {
+            word = w;
+            phonemes = p;
+        }
+        
+    public String getString()
+    {
+        return word;
+    }
+    public ArrayList<Phoneme> getPhonemes()
+    {
+        return phonemes;
+    }
 }
