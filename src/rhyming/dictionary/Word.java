@@ -113,4 +113,50 @@ public class Word {
         }
         return true;
     }
+    public Boolean isFamilyRhyme(Word w, int syl) //
+    {
+        for(int i = 1; i <= syl;i++)
+        {
+            if (i==syl)
+            {
+                if(!isFamily(w.getConsonants(i), i)||(this.getVowel(i)!=w.getVowel(i))||(this.getConsonants(i+1)==w.getConsonants(i+1)))
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                if(!isFamily(w.getConsonants(i), i)||(this.getVowel(i)!=w.getVowel(i)))
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    public Boolean isFamily(ArrayList<Phoneme> c, int n)
+    {
+        ArrayList<Phoneme> p = this.getConsonants(n);
+                
+        if(c.size() != p.size())
+        {
+            return false;
+        }
+        int family = 0;
+        for(int i=0;i<n;i++)
+        {
+            if(!c.get(i).isEqual(p.get(i)))
+            {
+                if(c.get(i).isFamily(p.get(i)))
+                {
+                    family++;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+        return (family==1);
+    }
 }
