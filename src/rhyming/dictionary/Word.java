@@ -8,6 +8,7 @@ import java.util.*;
 /**
  *
  * @author Alain
+ * @editor Vincent
  */
 public class Word {
     private String word;
@@ -47,19 +48,7 @@ public class Word {
         }
         return length; //return the vowel count
     }
-    public Phoneme getFinalVowel() //returns the last vowel in the word
-    {
-        for(int i = phonemes.size()-1; i >= 0; i--) //Starts looking from the back of the word
-        {
-            if(phonemes.get(i).isVowel())
-            {
-                return phonemes.get(i);  //Returns the first vowel it finds
-            }
-        }
-        Phoneme error = new Phoneme("noVowel"); //If no vowel is found, return a noVowel phoneme which we can use to launch an error message later
-        return error;
-    }
-    public Phoneme getSecondVowel() //Searches for the second to last vowel
+    public Phoneme getVowel(int n) //returns the last vowel in the word
     {
         ArrayList<Phoneme> x = new ArrayList(); //creates an empty list of Phonemes
         for(int i = phonemes.size()-1; i >= 0; i--) //Starts looking from the back of the word
@@ -67,9 +56,9 @@ public class Word {
             if(phonemes.get(i).isVowel())
             {
                 x.add(phonemes.get(i)); //adds any vowels found to the list
-                if(x.size()==2) //then, if at least two vowels have been found
+                if(x.size()==n) //then, if the right number of vowels have been found
                 {
-                    return x.get(1); //return the second vowel
+                    return x.get(n-1); //return the request vowel
                 }
             }
         }
@@ -79,37 +68,7 @@ public class Word {
                           //When searching through words for multi-syllable rhymes, check their Vowel Count before bothering to check if any vowels rhyme.
                           //Essentially, there should be no way for getSecondVowel to return error
     }
-    public Phoneme getThirdVowel() //Searches for the third to last vowel
-    {
-        ArrayList<Phoneme> x = new ArrayList(); //creates an empty list of Phonemes
-        for(int i = phonemes.size()-1; i >= 0; i--) //Starts looking from the back of the word
-        {
-            if(phonemes.get(i).isVowel())
-            {
-                x.add(phonemes.get(i)); //adds any vowels found to the list
-                if(x.size()==3) //then, if at least three vowels have been found
-                {
-                    return x.get(2); //return the third vowel
-                }
-            }
-        }
-        Phoneme error = new Phoneme("noVowel");
-        return error;
-    }
-    public ArrayList<Phoneme> getLastConsonants() //Returns a list of any consonants after the final vowel. The list is empty if there are none.
-    {
-        ArrayList<Phoneme> x = new ArrayList(); //creates an empty list of Phonemes
-        for(int i = phonemes.size()-1; i >= 0; i--) //Starts looking from the back of the word
-        {
-            if(phonemes.get(i).isVowel())
-            {
-                return x; //Returns the list of consonants as soon as a vowel is found
-            }
-            x.add(phonemes.get(i)); //If no vowel has been found yet, add the consonant to the list
-        }
-        return x; //Return any consonants that have been found
-    }
-    public ArrayList<Phoneme> getSecondConsonants() //Returns a list of any consonants between the final vowel and the one before it.
+    public ArrayList<Phoneme> getConsonants(int n) //Returns a list of any consonants between the n to last vowel and the one after it, if any.
     {
         ArrayList<Phoneme> x = new ArrayList(); //creates an empty list of Phonemes for the consonants
         int vowelCounter = 0; //And a counter for the vowels
@@ -121,64 +80,37 @@ public class Word {
             }
             else //If the phoneme is a consonant
             {
-                if(vowelCounter==1) //and exactly one vowel has already been found
+                if(vowelCounter==n-1) //and exactly one vowel has already been found
                 {
                     x.add(phonemes.get(i)); //Add the consonant to the list
                 }
             }
-            if(vowelCounter==2) //if a second vowel has been found, return the list
+            if(vowelCounter==n) //if a second vowel has been found, return the list
             {
                 return x;
             }
         }
         return x; //if one or fewer vowels are found, the list is still returned.
     }
-    public ArrayList<Phoneme> getThirdConsonants() //Returns a list of any consonants between the second to last vowel and the one before it.
+    public Boolean isPerfectRhyme(Word w, int syl) //
     {
-        ArrayList<Phoneme> x = new ArrayList(); //creates an empty list of Phonemes for the consonants
-        int vowelCounter = 0; //And a counter for the vowels
-        for(int i = phonemes.size()-1; i >= 0; i--) //Starts looking from the back of the word
+        for(int i = 1; i <= syl;i++)
         {
-            if(phonemes.get(i).isVowel()) //If it finds a vowel
+            if (i==syl)
             {
-                vowelCounter++; //It adds 1 to the counter
-            }
-            else //If the phoneme is a consonant
-            {
-                if(vowelCounter==2) //and exactly two vowels has already been found
+                if((this.getConsonants(i)!=w.getConsonants(i))||(this.getVowel(i)!=w.getVowel(i))||(this.getConsonants(i+1)==w.getConsonants(i+1)))
                 {
-                    x.add(phonemes.get(i)); //Add the consonant to the list
+                    return false;
                 }
             }
-            if(vowelCounter==3) //if a third vowel has been found, return the list
+            else
             {
-                return x;
-            }
-        }
-        return x;
-    }
-    public ArrayList<Phoneme> getFourthConsonants() //Returns a list of any consonants between the third to last vowel and the one before it.
-    {
-        ArrayList<Phoneme> x = new ArrayList(); //creates an empty list of Phonemes for the consonants
-        int vowelCounter = 0; //And a counter for the vowels
-        for(int i = phonemes.size()-1; i >= 0; i--) //Starts looking from the back of the word
-        {
-            if(phonemes.get(i).isVowel()) //If it finds a vowel
-            {
-                vowelCounter++; //It adds 1 to the counter
-            }
-            else //If the phoneme is a consonant
-            {
-                if(vowelCounter==3) //and exactly three vowels have already been found
+                if((this.getConsonants(i)!=w.getConsonants(i))||(this.getVowel(i)!=w.getVowel(i)))
                 {
-                    x.add(phonemes.get(i)); //Add the consonant to the list
+                    return false;
                 }
             }
-            if(vowelCounter==4) //if a fourth vowel has been found, return the list
-            {
-                return x;
-            }
         }
-        return x; //These last two methods should only be called if we know a word has sufficient syllables
+        return true;
     }
 }
