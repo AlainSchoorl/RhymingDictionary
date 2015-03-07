@@ -157,7 +157,8 @@ public class Word {
                 }
             }
         }
-        return (family==1||family==0); // If at the end on and only one element of the consonant groups is family (and the rest exact matches) the words are family rhymes.
+        return (family==1||family==0); // If the consonants match exactly or have exactly one consonant in the same family as another
+                                       // consonant in the same position, then the consonant groups are families
     }
     public Boolean isAssonanceRhyme(Word w, int syl) //
     {
