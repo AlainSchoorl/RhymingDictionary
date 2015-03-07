@@ -169,18 +169,18 @@ public class Word {
                 return false;
             }
         }
-        return true; // If all checks are passed, the words are assonance rhymes. This also returns perfect rhymes.
+        return true; // If all the vowels are identical, the words are assonance rhymes. This also returns perfect rhymes.
     }
     public Boolean isConsonanceRhyme(Word w, int syl) //
     {
         for(int i = 1; i <= syl;i++) // runs through the number of syllable groups as specified by the input.
         {
-            if((!this.getConsonants(i).equals(w.getConsonants(i)))||(!this.getVowel(i).isSimilarVowel(w.getVowel(i))))
+            if((!this.getConsonants(i).equals(w.getConsonants(i)))||(!this.getVowel(i).isSimilarVowel(w.getVowel(i)))) // If the consonants differ or the vowels aren't similar at any point, returns false.
             {
                 return false;
             }
         }
-        return true;
+        return true; // If all the consonants are identical and all the vowels similar, returns true. At the moment doesn't care for consonants beyond the last vowel.
     }
     /**public Boolean isAdditiveRhyme(Word w, int syl) // Here the local word is meant to be the additive rhyme and hence should be the longer group
     {

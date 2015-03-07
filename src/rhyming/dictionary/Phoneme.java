@@ -72,7 +72,7 @@ public class Phoneme {
     }
     public int family() //return 1 for plosive, 2 for frictative, 3 for nasal, and 0 for no family
     {
-        int i = groups.indexOf(p);
+        int i = groups.indexOf(p); //Check where the phoneme lies in groups, which are ordered by consonant and vowel family
         if(0<=i && i<=5) //If the phoneme is plosive
         {
             return 1;
@@ -104,19 +104,19 @@ public class Phoneme {
         }
         return false; //If somehow you got this far
     }
-    public String vowelFamily()
+    public String vowelFamily() //Returns a string of which the first letter is L or S for Long or Short, and the second vowel is A, E, I, O, or U
     {
-        int i = groups.indexOf(p);
-        String s = new String("");
-        if(20<=i && i<=26) //If the phoneme is plosive
+        int i = groups.indexOf(p); //Check where the phoneme lies in groups, which are ordered by consonant and vowel family
+        String s = new String(""); //Create an empty string
+        if(20<=i && i<=26) //If the vowel is long
         {
-            s = s+"L";
+            s = s+"L"; //add L to the string
         }
         else
         {
-            s = s+"S";
+            s = s+"S"; //Otherwise, add S to the string
         }
-        if(i==20||i==27)
+        if(i==20||i==27) //Then add one of the following letters to indicate which vowel sound it is
         {
             s = s+"A";
         }
@@ -138,7 +138,7 @@ public class Phoneme {
         }
         return s;
     }
-    public Boolean isSimilarVowel(Phoneme d)
+    public Boolean isSimilarVowel(Phoneme d) //Returns true if both vowels are long, short, or of the same vowel group (A,E,I,O,U) Also true if they're the same vowel.
     {
         return((this.vowelFamily().charAt(0)==d.vowelFamily().charAt(0))||(this.vowelFamily().charAt(1)==d.vowelFamily().charAt(1)));
     }
