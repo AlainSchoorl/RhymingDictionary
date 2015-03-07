@@ -163,70 +163,84 @@ public class Word {
     {
         return true;
     }
-    public Boolean isConsanceRhyme(Word w, int syl) //
+    public Boolean isConsonanceRhyme(Word w, int syl) //
     {
         return true;
     }
-    public Boolean isAdditiveRhyme(Word w, int syl) //
+    public Boolean isAdditiveRhyme(Word w, int syl) // Here the local word is meant to be the additive rhyme and hence should be the longer group
     {
-        if(this.getConsonants(1).size()<=w.getConsonants(1).size())
+        if(this.getConsonants(1).size()<=w.getConsonants(1).size()) // Check that returns false if the base word does not end with a longer consonance group
             return false;
-        if((w.getConsonants(1).size()==1)&&(this.getConsonants(1).indexOf(w.getConsonants(1).get(0))==-1))
+        if(this.getConsonants(1).indexOf(w.getConsonants(1).get(0))==-1) // Makes sure the first element of the shorter group exists in the longer group
         {
             return false;
         }
-        if(w.getConsonants(1).size()!=1)
+        if(w.getConsonants(1).size()!=1) // Knowing that the first element exists, only runs the remaining checks if there are more elements in the shorter group
         {
-            for(int i = 1; i < w.getConsonants(1).size(); i++)
+            for(int i = 1; i < w.getConsonants(1).size(); i++) // runs through the remaining elements in the shorter group
             {
-                if((this.getConsonants(1).indexOf(w.getConsonants(1).get(i-1))==-1)||(this.getConsonants(1).indexOf(w.getConsonants(1).get(i))==-1))
+                if(this.getConsonants(1).indexOf(w.getConsonants(1).get(i))==-1) // Checks if the next element of the shorter group also exist
                 {
                     return false;
                 }
-                if((this.getConsonants(1).indexOf(w.getConsonants(1).get(i))!=(this.getConsonants(1).indexOf(w.getConsonants(1).get(i-1))+1)))
+                if((this.getConsonants(1).indexOf(w.getConsonants(1).get(i))!=(this.getConsonants(1).indexOf(w.getConsonants(1).get(i-1))+1))) // Check if the next element appears right after the previous element.
                 {
                     return false;
                 }
             }
         }
-        for(int i = 1; i <= syl;i++)
+        for(int i = 1; i <= syl;i++) // Check the remaining consonants and their adjacent vowels
         {
-            if((this.getConsonants(i+1)!=w.getConsonants(i+1))||(this.getVowel(i)!=w.getVowel(i)))
+            if(i==syl) // If the final syllable has been reached different conditions on the consonants apply
+            {
+                if((this.getConsonants(i+1)==w.getConsonants(i+1))||(this.getVowel(i)!=w.getVowel(i))) // Check that all conditions for the rhyme apply
+                {
+                    return false;
+                }
+            }
+            else if((this.getConsonants(i+1)!=w.getConsonants(i+1))||(this.getVowel(i)!=w.getVowel(i))) // Check that all conditions for the rhyme apply
             {
                 return false;
             }
         }
-        return true;
+        return true; // If all checks pass the base word is an additive rhyme for the given word.
     }
-    public Boolean isSubtractiveRhyme(Word w, int syl) //
-    {
-        if(w.getConsonants(1).size()<=this.getConsonants(1).size())
+    public Boolean isSubtractiveRhyme(Word w, int syl) // Here the local word is meant to be the subtractive rhyme and hence should be the shorter group
+    {   // This first section is the same as the isAdditiveRhyme function except all instances of "w" and "this" have been swapped.
+        if(w.getConsonants(1).size()<=this.getConsonants(1).size()) // Check that returns false if the base word does not end with a shorter consonance group
             return false;
-        if((this.getConsonants(1).size()==1)&&(w.getConsonants(1).indexOf(this.getConsonants(1).get(0))==-1))
+        if(w.getConsonants(1).indexOf(this.getConsonants(1).get(0))==-1) // Makes sure the first element of the shorter group exists in the longer group
         {
             return false;
         }
-        if(this.getConsonants(1).size()!=1)
+        if(this.getConsonants(1).size()!=1) // Knowing that the first element exists, only runs the remaining checks if there are more elements in the shorter group
         {
-            for(int i = 1; i < this.getConsonants(1).size(); i++)
+            for(int i = 1; i < this.getConsonants(1).size(); i++) // runs through the remaining elements in the shorter group
             {
-                if((w.getConsonants(1).indexOf(this.getConsonants(1).get(i-1))==-1)||(w.getConsonants(1).indexOf(this.getConsonants(1).get(i))==-1))
+                if(w.getConsonants(1).indexOf(this.getConsonants(1).get(i))==-1) // Checks if the next element of the shorter group also exist
                 {
                     return false;
                 }
-                if((w.getConsonants(1).indexOf(this.getConsonants(1).get(i))!=(w.getConsonants(1).indexOf(this.getConsonants(1).get(i-1))+1)))
+                if((w.getConsonants(1).indexOf(this.getConsonants(1).get(i))!=(w.getConsonants(1).indexOf(this.getConsonants(1).get(i-1))+1))) // Check if the next element appears right after the previous element.
                 {
                     return false;
                 }
             }
         }
-        for(int i = 1; i <= syl;i++)
+        for(int i = 1; i <= syl;i++) // Check the remaining consonants and their adjacent vowels
         {
-            if((this.getConsonants(i+1)!=w.getConsonants(i+1))||(this.getVowel(i)!=w.getVowel(i)))
+            if(i==syl) // If the final syllable has been reached different conditions on the consonants apply
+            {
+                if((this.getConsonants(i+1)==w.getConsonants(i+1))||(this.getVowel(i)!=w.getVowel(i))) // Check that all conditions for the rhyme apply
+                {
+                    return false;
+                }
+            }
+            else if((this.getConsonants(i+1)!=w.getConsonants(i+1))||(this.getVowel(i)!=w.getVowel(i))) // Check that all conditions for the rhyme apply
             {
                 return false;
             }
         }
-        return true;
+        return true; // If all checks pass the base word is a subtractive rhyme for the given word.
     }
 }
