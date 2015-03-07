@@ -92,18 +92,18 @@ public class Word {
         }
         return x; //if one or fewer vowels are found, the list is still returned.
     }
-    public Boolean isPerfectRhyme(Word w, int syl) //
+    public Boolean isPerfectRhyme(Word w, int syl) // Returns true if the base word and given word meet the conditions for perfect rhyme
     {
-        for(int i = 1; i <= syl;i++)
+        for(int i = 1; i <= syl;i++) // runs through the number of syllable groups as specified by the input.
         {
-            if (i==syl)
+            if (i==syl) // if the final vowel group is being checked, the consonant group before it must not match, hence the seperate condition.
             {
                 if((this.getConsonants(i)!=w.getConsonants(i))||(this.getVowel(i)!=w.getVowel(i))||(this.getConsonants(i+1)==w.getConsonants(i+1)))
                 {
                     return false;
                 }
             }
-            else
+            else // in all other cases the vowels and the consonants after it are checked to ensure to are the same.
             {
                 if((this.getConsonants(i)!=w.getConsonants(i))||(this.getVowel(i)!=w.getVowel(i)))
                 {
@@ -111,20 +111,20 @@ public class Word {
                 }
             }
         }
-        return true;
+        return true; // If all checks are passed, the words are perfect rhymes.
     }
-    public Boolean isFamilyRhyme(Word w, int syl) //
-    {
-        for(int i = 1; i <= syl;i++)
+    public Boolean isFamilyRhyme(Word w, int syl) // Returns true if the base word and given word meet the conditions for family rhyme
+    {   // WARNING: This function needs to be reviewed. I do not believe the checks are currently correct. - Vincent.
+        for(int i = 1; i <= syl;i++) // runs through the number of syllable groups as specified by the input
         {
-            if (i==syl)
+            if (i==syl) // if the final vowel group is being checked, the consonant group before it be family.
             {
                 if(!isFamily(w.getConsonants(i), i)||(this.getVowel(i)!=w.getVowel(i))||(this.getConsonants(i+1)==w.getConsonants(i+1)))
                 {
                     return false;
                 }
             }
-            else
+            else // in all other cases the vowels and the consonants after it are checked to ensure to are the same.
             {
                 if(!isFamily(w.getConsonants(i), i)||(this.getVowel(i)!=w.getVowel(i)))
                 {
@@ -132,32 +132,32 @@ public class Word {
                 }
             }
         }
-        return true;
+        return true; // If all checks are passed, the words are family rhymes.
     }
-    public Boolean isFamily(ArrayList<Phoneme> c, int n)
+    public Boolean isFamily(ArrayList<Phoneme> c, int n) // Returns true if two phenome list meet the conditions for family.
     {
-        ArrayList<Phoneme> p = this.getConsonants(n);
+        ArrayList<Phoneme> p = this.getConsonants(n); // Grab the correct consonant group from the local word and store it in p.
                 
-        if(c.size() != p.size())
+        if(c.size() != p.size()) // Check to make sure the two consonant groups have the same number of elements.
         {
             return false;
         }
-        int family = 0;
-        for(int i=0;i<n;i++)
+        int family = 0; // Iniate a counter to see how many elements are not exact matches, but in the same family.
+        for(int i=0;i<c.size();i++) // run through all the elements in the consonant groups.
         {
-            if(!c.get(i).isEqual(p.get(i)))
+            if(!c.get(i).isEqual(p.get(i))) // First check if the consonants in the same position are not the same.
             {
-                if(c.get(i).isFamily(p.get(i)))
+                if(c.get(i).isFamily(p.get(i))) // If they are not the same, but they belong to the same family, increase the family counter.
                 {
                     family++;
                 }
-                else
+                else // If elements in the same position are neither family nor exact matches, the word cannot be a family rhyme.
                 {
                     return false;
                 }
             }
         }
-        return (family==1);
+        return (family==1); // If at the end on and only one element of the consonant groups is family (and the rest exact matches) the words are family rhymes.
     }
     public Boolean isAssonanceRhyme(Word w, int syl) //
     {
