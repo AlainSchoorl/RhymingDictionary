@@ -38,46 +38,46 @@ public class Phoneme {
     }
     public int family() //return 1 for plosive, 2 for frictative, 3 for nasal, and 0 for no family
     {
-        if(p.equals("B")||p.equals("D")||p.equals("G")||p.equals("P")||p.equals("T")||p.equals("K"))
+        if(p.equals("B")||p.equals("D")||p.equals("G")||p.equals("P")||p.equals("T")||p.equals("K")) //If the phoneme is plosive
         {
             return 1;
         }
         if(p.equals("V")||p.equals("Z")||p.equals("ZH")||p.equals("JH")||p.equals("DH")||p.equals("HH")||
-                p.equals("F")||p.equals("TH")||p.equals("S")||p.equals("SH")||p.equals("CH"))
+                p.equals("F")||p.equals("TH")||p.equals("S")||p.equals("SH")||p.equals("CH")) //If the phoneme is frictative
         {
             return 2;
         }
-        if(p.equals("M")||p.equals("N")||p.equals("NG"))
+        if(p.equals("M")||p.equals("N")||p.equals("NG")) //If the phoneme is nasal
         {
             return 3;
         }
-        return 0;
+        return 0; //Otherwise, no family
     }
     public Boolean isFamily(Phoneme b)
     {
         String s = b.getPhoneme();
-        if(s.equals(p))
+        if(s.equals(p)) //If it's the same phoneme
         {
-            return false;
+            return false; //Not a family
         }
         int i = this.family();
-        if(i==0)
+        if(i==0) //If the first phoneme has no family
         {
-            return false;
+            return false; //Not a family
         }
-        if(i==1&&(s.equals("B")||s.equals("D")||s.equals("G")||s.equals("P")||s.equals("T")||s.equals("K")))
+        if(i==1&&(s.equals("B")||s.equals("D")||s.equals("G")||s.equals("P")||s.equals("T")||s.equals("K"))) //If they're both plosive
         {
                 return true;
         }
         if(i==2&&(s.equals("V")||s.equals("Z")||s.equals("ZH")||s.equals("JH")||s.equals("DH")||s.equals("HH")||
-                s.equals("F")||s.equals("TH")||s.equals("S")||s.equals("SH")||s.equals("CH")))
+                s.equals("F")||s.equals("TH")||s.equals("S")||s.equals("SH")||s.equals("CH"))) //If they're both frictative
         {
                 return true;
         }
-        if(i==3&&(s.equals("M")||s.equals("N")||s.equals("NG")))
+        if(i==3&&(s.equals("M")||s.equals("N")||s.equals("NG"))) //If they're both nasal
         {
                 return true;
         }
-        return false;
+        return false; //If somehow you got this far
     }
 }
