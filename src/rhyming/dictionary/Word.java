@@ -114,19 +114,19 @@ public class Word {
         return true; // If all checks are passed, the words are perfect rhymes.
     }
     public Boolean isFamilyRhyme(Word w, int syl) // Returns true if the base word and given word meet the conditions for family rhyme
-    {   // WARNING: This function needs to be reviewed. I do not believe the checks are currently correct. - Vincent.
+    {   
         for(int i = 1; i <= syl;i++) // runs through the number of syllable groups as specified by the input
         {
             if (i==syl) // if the final vowel group is being checked, the consonant group before it be family.
             {
-                if(!isFamily(w.getConsonants(i), i)||(this.getVowel(i)!=w.getVowel(i))||(this.getConsonants(i+1)==w.getConsonants(i+1)))
+                if(!this.isFamily(w.getConsonants(i), i)||(this.getVowel(i)!=w.getVowel(i))||(this.getConsonants(i+1)==w.getConsonants(i+1)))
                 {
                     return false;
                 }
             }
             else // in all other cases the vowels and the consonants after it are checked to ensure to are the same.
             {
-                if(!isFamily(w.getConsonants(i), i)||(this.getVowel(i)!=w.getVowel(i)))
+                if(!this.isFamily(w.getConsonants(i), i)||(this.getVowel(i)!=w.getVowel(i)))
                 {
                     return false;
                 }
@@ -157,7 +157,7 @@ public class Word {
                 }
             }
         }
-        return (family==1); // If at the end on and only one element of the consonant groups is family (and the rest exact matches) the words are family rhymes.
+        return (family==1||family==0); // If at the end on and only one element of the consonant groups is family (and the rest exact matches) the words are family rhymes.
     }
     public Boolean isAssonanceRhyme(Word w, int syl) //
     {
