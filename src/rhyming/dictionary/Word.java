@@ -159,4 +159,74 @@ public class Word {
         }
         return (family==1);
     }
+    public Boolean isAssonanceRhyme(Word w, int syl) //
+    {
+        return true;
+    }
+    public Boolean isConsanceRhyme(Word w, int syl) //
+    {
+        return true;
+    }
+    public Boolean isAdditiveRhyme(Word w, int syl) //
+    {
+        if(this.getConsonants(1).size()<=w.getConsonants(1).size())
+            return false;
+        if((w.getConsonants(1).size()==1)&&(this.getConsonants(1).indexOf(w.getConsonants(1).get(0))==-1))
+        {
+            return false;
+        }
+        if(w.getConsonants(1).size()!=1)
+        {
+            for(int i = 1; i < w.getConsonants(1).size(); i++)
+            {
+                if((this.getConsonants(1).indexOf(w.getConsonants(1).get(i-1))==-1)||(this.getConsonants(1).indexOf(w.getConsonants(1).get(i))==-1))
+                {
+                    return false;
+                }
+                if((this.getConsonants(1).indexOf(w.getConsonants(1).get(i))!=(this.getConsonants(1).indexOf(w.getConsonants(1).get(i-1))+1)))
+                {
+                    return false;
+                }
+            }
+        }
+        for(int i = 1; i <= syl;i++)
+        {
+            if((this.getConsonants(i+1)!=w.getConsonants(i+1))||(this.getVowel(i)!=w.getVowel(i)))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+    public Boolean isSubtractiveRhyme(Word w, int syl) //
+    {
+        if(w.getConsonants(1).size()<=this.getConsonants(1).size())
+            return false;
+        if((this.getConsonants(1).size()==1)&&(w.getConsonants(1).indexOf(this.getConsonants(1).get(0))==-1))
+        {
+            return false;
+        }
+        if(this.getConsonants(1).size()!=1)
+        {
+            for(int i = 1; i < this.getConsonants(1).size(); i++)
+            {
+                if((w.getConsonants(1).indexOf(this.getConsonants(1).get(i-1))==-1)||(w.getConsonants(1).indexOf(this.getConsonants(1).get(i))==-1))
+                {
+                    return false;
+                }
+                if((w.getConsonants(1).indexOf(this.getConsonants(1).get(i))!=(w.getConsonants(1).indexOf(this.getConsonants(1).get(i-1))+1)))
+                {
+                    return false;
+                }
+            }
+        }
+        for(int i = 1; i <= syl;i++)
+        {
+            if((this.getConsonants(i+1)!=w.getConsonants(i+1))||(this.getVowel(i)!=w.getVowel(i)))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
 }
