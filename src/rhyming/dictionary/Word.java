@@ -98,14 +98,14 @@ public class Word {
         {
             if (i==syl) // if the final vowel group is being checked, the consonant group before it must not match, hence the seperate condition.
             {
-                if((this.getConsonants(i)!=w.getConsonants(i))||(this.getVowel(i)!=w.getVowel(i))||(this.getConsonants(i+1)==w.getConsonants(i+1)))
+                if((!this.getConsonants(i).equals(w.getConsonants(i)))||(!this.getVowel(i).isEqual(w.getVowel(i)))||(this.getConsonants(i+1).equals(w.getConsonants(i+1))))
                 {
                     return false;
                 }
             }
             else // in all other cases the vowels and the consonants after it are checked to ensure to are the same.
             {
-                if((this.getConsonants(i)!=w.getConsonants(i))||(this.getVowel(i)!=w.getVowel(i)))
+                if((!this.getConsonants(i).equals(w.getConsonants(i)))||(!this.getVowel(i).isEqual(w.getVowel(i))))
                 {
                     return false;
                 }
@@ -119,14 +119,14 @@ public class Word {
         {
             if (i==syl) // if the final vowel group is being checked, the consonant group before it be family.
             {
-                if(!this.isFamily(w.getConsonants(i), i)||(this.getVowel(i)!=w.getVowel(i))||(this.getConsonants(i+1)==w.getConsonants(i+1)))
+                if(!this.isFamily(w.getConsonants(i), i)||(!this.getVowel(i).isEqual(w.getVowel(i)))||(this.getConsonants(i+1).equals(w.getConsonants(i+1))))
                 {
                     return false;
                 }
             }
             else // in all other cases the vowels and the consonants after it are checked to ensure to are the same.
             {
-                if(!this.isFamily(w.getConsonants(i), i)||(this.getVowel(i)!=w.getVowel(i)))
+                if(!this.isFamily(w.getConsonants(i), i)||(!this.getVowel(i).isEqual(w.getVowel(i))))
                 {
                     return false;
                 }
@@ -162,16 +162,32 @@ public class Word {
     }
     public Boolean isAssonanceRhyme(Word w, int syl) //
     {
-        return true;
+        for(int i = 1; i <= syl;i++) // runs through the number of syllable groups as specified by the input.
+        {
+            if(!this.getVowel(i).isEqual(w.getVowel(i))) //Check to see if the vowels are the same.
+            {
+                return false;
+            }
+        }
+        return true; // If all checks are passed, the words are assonance rhymes. This also returns perfect rhymes.
     }
     public Boolean isConsonanceRhyme(Word w, int syl) //
     {
+        for(int i = 1; i <= syl;i++) // runs through the number of syllable groups as specified by the input.
+        {
+            if((!this.getConsonants(i).equals(w.getConsonants(i)))||(!this.getVowel(i).isSimilarVowel(w.getVowel(i))))
+            {
+                return false;
+            }
+        }
         return true;
     }
-    public Boolean isAdditiveRhyme(Word w, int syl) // Here the local word is meant to be the additive rhyme and hence should be the longer group
+    /**public Boolean isAdditiveRhyme(Word w, int syl) // Here the local word is meant to be the additive rhyme and hence should be the longer group
     {
         if(this.getConsonants(1).size()<=w.getConsonants(1).size()) // Check that returns false if the base word does not end with a longer consonance group
+        {
             return false;
+        }
         if(this.getConsonants(1).indexOf(w.getConsonants(1).get(0))==-1) // Makes sure the first element of the shorter group exists in the longer group
         {
             return false;
@@ -205,8 +221,66 @@ public class Word {
             }
         }
         return true; // If all checks pass the base word is an additive rhyme for the given word.
+    }*/
+    public Boolean isSubtractiveRhyme(Word w, int syl) // Slightly different implementation. The local word is the shorter one.
+    {
+        if((this.getConsonants(1).size() >= w.getConsonants(1).size())) //Check to see if the local word is longer
+        {
+            return false;
+        }
+        for(int c = (this.getConsonants(1).size()-1); c >= 0; c--) //Run through the last consononants group starting from the back
+        {
+            if(!this.getConsonants(1).get(c).equals(w.getConsonants(1).get(c))) //Check every element to see if they match. If they do, they start the same but w has extra consonants at the end
+            {
+                return false;
+            }
+        }
+        for(int i = 1; i <= syl;i++) // Check the remaining consonants and their adjacent vowels
+        {
+            if(i==syl) // If the final syllable has been reached different conditions on the consonants apply
+            {
+                if((this.getConsonants(i+1).equals(w.getConsonants(i+1)))||(!this.getVowel(i).isEqual(w.getVowel(i)))) // Check that all conditions for the rhyme apply
+                {
+                    return false;
+                }
+            }
+            else if((this.getConsonants(i+1).equals(w.getConsonants(i+1)))||(!this.getVowel(i).isEqual(w.getVowel(i)))) // Check that all conditions for the rhyme apply
+            {
+                return false;
+            }
+        }
+        return true; // If all checks are passed, w is an additive rhyme to the local word.
     }
-    public Boolean isSubtractiveRhyme(Word w, int syl) // Here the local word is meant to be the subtractive rhyme and hence should be the shorter group
+    public Boolean isAdditiveRhyme(Word w, int syl) // Subtractive Rhyme but w's and this' have been switched.
+    {
+        if((w.getConsonants(1).size() >= this.getConsonants(1).size())) //Check to see if the local word is shorter
+        {
+            return false;
+        }
+        for(int c = (w.getConsonants(1).size()-1); c >= 0; c--) //Run through the last consononants group starting from the back
+        {
+            if(!w.getConsonants(1).get(c).equals(this.getConsonants(1).get(c))) //Check every element to see if they match. If they do, they start the same but w has extra consonants at the end
+            {
+                return false;
+            }
+        }
+        for(int i = 1; i <= syl;i++) // Check the remaining consonants and their adjacent vowels
+        {
+            if(i==syl) // If the final syllable has been reached different conditions on the consonants apply
+            {
+                if((w.getConsonants(i+1).equals(this.getConsonants(i+1)))||(!w.getVowel(i).isEqual(this.getVowel(i)))) // Check that all conditions for the rhyme apply
+                {
+                    return false;
+                }
+            }
+            else if((w.getConsonants(i+1).equals(this.getConsonants(i+1)))||(!w.getVowel(i).isEqual(this.getVowel(i)))) // Check that all conditions for the rhyme apply
+            {
+                return false;
+            }
+        }
+        return true; // If all checks are passed, w is an additive rhyme to the local word.
+    }
+    /** public Boolean isSubtractiveRhyme(Word w, int syl) // Here the local word is meant to be the subtractive rhyme and hence should be the shorter group
     {   // This first section is the same as the isAdditiveRhyme function except all instances of "w" and "this" have been swapped.
         if(w.getConsonants(1).size()<=this.getConsonants(1).size()) // Check that returns false if the base word does not end with a shorter consonance group
             return false;
@@ -243,5 +317,5 @@ public class Word {
             }
         }
         return true; // If all checks pass the base word is a subtractive rhyme for the given word.
-    }
+    }*/
 }
