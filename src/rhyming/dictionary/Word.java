@@ -224,15 +224,33 @@ public class Word {
     }*/
     public Boolean isSubtractiveRhyme(Word w, int syl) // Slightly different implementation. The local word is the shorter one.
     {
-        if((this.getConsonants(1).size() >= w.getConsonants(1).size())) //Check to see if the local word is longer
+        ArrayList<Phoneme> wCons = w.getConsonants(1); //These get called a few times
+        ArrayList<Phoneme> tCons = this.getConsonants(1);
+        if((tCons.size() >= wCons.size())) //Check to see if the local word is shorter
         {
             return false;
         }
-        for(int c = (this.getConsonants(1).size()-1); c >= 0; c--) //Run through the last consononants group starting from the back
+        if(!wCons.isEmpty()) //If the other word is empty, then the following checks are already satisified and should be skipped to avoid a NullPointerException
         {
-            if(!this.getConsonants(1).get(c).equals(w.getConsonants(1).get(c))) //Check every element to see if they match. If they do, they start the same but w has extra consonants at the end
+            if(tCons.get(0).equals(wCons.get(0))) //If the first consonants match, start looking from the front
             {
-                return false;
+                for(int c = 1; c < wCons.size(); c++) //Run through the last consononants group starting from the back
+                {
+                    if(!tCons.get(c).equals(wCons.get(c))) //Check every element to see if they match. If they do, they start the same but w has extra consonants at the end
+                    {
+                        return false;
+                    }
+                }
+            }
+            else //Otherwise start looking from the back
+            {
+                for(int c = (tCons.size()-1); c >= 0; c--) //Run through the last consononants group starting from the back
+                {
+                    if(!tCons.get(c).equals(wCons.get(c))) //Check every element to see if they match. If they do, they end the same but w has extra consonants at the end
+                    {
+                        return false;
+                    }
+                }
             }
         }
         for(int i = 1; i <= syl;i++) // Check the remaining consonants and their adjacent vowels
@@ -253,15 +271,33 @@ public class Word {
     }
     public Boolean isAdditiveRhyme(Word w, int syl) // Subtractive Rhyme but w's and this' have been switched.
     {
-        if((w.getConsonants(1).size() >= this.getConsonants(1).size())) //Check to see if the local word is shorter
+        ArrayList<Phoneme> wCons = w.getConsonants(1); //These get called a few times
+        ArrayList<Phoneme> tCons = this.getConsonants(1);
+        if((wCons.size() >= tCons.size())) //Check to see if the local word is shorter
         {
             return false;
         }
-        for(int c = (w.getConsonants(1).size()-1); c >= 0; c--) //Run through the last consononants group starting from the back
+        if(!tCons.isEmpty()) //If the local word is empty, the following checks are already satisified and should be skipped to avoid a NullPointerException
         {
-            if(!w.getConsonants(1).get(c).equals(this.getConsonants(1).get(c))) //Check every element to see if they match. If they do, they start the same but w has extra consonants at the end
+            if(wCons.get(0).equals(tCons.get(0))) //If the first consonants match, start looking from the front
             {
-                return false;
+                for(int c = 1; c < tCons.size(); c++) //Run through the last consononants group starting from the back
+                {
+                    if(!wCons.get(c).equals(tCons.get(c))) //Check every element to see if they match. If they do, they start the same but w has extra consonants at the end
+                    {
+                        return false;
+                    }
+                }
+            }
+            else //Otherwise start looking from the back
+            {
+                for(int c = (wCons.size()-1); c >= 0; c--) //Run through the last consononants group starting from the back
+                {
+                    if(!wCons.get(c).equals(tCons.get(c))) //Check every element to see if they match. If they do, they end the same but w has extra consonants at the end
+                    {
+                        return false;
+                    }
+                }
             }
         }
         for(int i = 1; i <= syl;i++) // Check the remaining consonants and their adjacent vowels
