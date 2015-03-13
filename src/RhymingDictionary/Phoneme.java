@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package rhyming.dictionary;
+package RhymingDictionary;
 import java.lang.Math;
 import java.util.ArrayList;
 /**
