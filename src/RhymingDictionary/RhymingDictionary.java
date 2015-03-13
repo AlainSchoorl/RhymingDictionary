@@ -5,6 +5,11 @@
  */
 package RhymingDictionary;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import java.util.ArrayList;
+
 /**
  *
  * @author Alain
@@ -22,14 +27,39 @@ public class RhymingDictionary extends javax.swing.JFrame {
     private WordList listOW = new WordList();
     private WordList listOY = new WordList();
     private WordList listAH = new WordList();
-    private WordList listEr = new WordList();
+    private WordList listER = new WordList();
     private WordList listUH = new WordList();
     private WordList listUW = new WordList();
+    private WordList fullList = new WordList();
     /**
      * Creates new form RhymingDictionary
      */
     public RhymingDictionary() {
         initComponents();
+        try
+        {
+            File file = new File("Library.txt");
+            Scanner in = new Scanner(file);
+            String s;
+            Phoneme p;
+            while (in.hasNextLine())
+            {
+                String line = in.nextLine();
+                Scanner lineBreaker = new Scanner(line);
+                s = new String(lineBreaker.next());
+                ArrayList<Phoneme> a = new ArrayList();
+                while(lineBreaker.hasNext())
+                {
+                    p = new Phoneme(lineBreaker.next());
+                    a.add(p);
+                }
+                fullList.add(new Word(s, a));
+            }
+        }
+        catch (FileNotFoundException e)
+        {
+            System.out.println("File not found");
+        }
     }
 
     /**

@@ -28,9 +28,12 @@ public class WordList extends HashSet<Word> {
         WordList rhymes = new WordList(); //Creates empty wordlist (I hope)
         for(Word r : this) //For every word in the list
         {
-            if(r.isPerfectRhyme(w, i)) //If it is a perfect rhyme, add it to the rhyme list
+            if(r.getVowelCount() >= i)
             {
-                rhymes.add(r);
+                if(r.isPerfectRhyme(w, i)) //If it is a perfect rhyme, add it to the rhyme list
+                {
+                    rhymes.add(r);
+                }
             }
         }
         return rhymes; //Return the rhyme list
@@ -40,9 +43,12 @@ public class WordList extends HashSet<Word> {
         WordList rhymes = new WordList();
         for(Word r : this)
         {
-            if(r.isFamilyRhyme(w, i))
+            if(r.getVowelCount() >= i)
             {
-                rhymes.add(r);
+                if(r.isFamilyRhyme(w, i)) //If it is a perfect rhyme, add it to the rhyme list
+                {
+                    rhymes.add(r);
+                }
             }
         }
         return rhymes;
@@ -52,9 +58,12 @@ public class WordList extends HashSet<Word> {
         WordList rhymes = new WordList();
         for(Word r : this)
         {
-            if(r.isAdditiveRhyme(w, i))
+            if(r.getVowelCount() >= i)
             {
-                rhymes.add(r);
+                if(r.isAdditiveRhyme(w, i)) //If it is a perfect rhyme, add it to the rhyme list
+                {
+                    rhymes.add(r);
+                }
             }
         }
         return rhymes;
@@ -64,9 +73,12 @@ public class WordList extends HashSet<Word> {
         WordList rhymes = new WordList();
         for(Word r : this)
         {
-            if(r.isSubtractiveRhyme(w, i))
+            if(r.getVowelCount() >= i)
             {
-                rhymes.add(r);
+                if(r.isSubtractiveRhyme(w, i)) //If it is a perfect rhyme, add it to the rhyme list
+                {
+                    rhymes.add(r);
+                }
             }
         }
         return rhymes;
@@ -76,9 +88,12 @@ public class WordList extends HashSet<Word> {
         WordList rhymes = new WordList();
         for(Word r : this)
         {
-            if(r.isAssonanceRhyme(w, i))
+            if(r.getVowelCount() >= i)
             {
-                rhymes.add(r);
+                if(r.isAssonanceRhyme(w, i)) //If it is a perfect rhyme, add it to the rhyme list
+                {
+                    rhymes.add(r);
+                }
             }
         }
         return rhymes;
@@ -88,9 +103,12 @@ public class WordList extends HashSet<Word> {
         WordList rhymes = new WordList();
         for(Word r : this)
         {
-            if(r.isConsonanceRhyme(w, i))
+            if(r.getVowelCount() >= i)
             {
-                rhymes.add(r);
+                if(r.isConsonanceRhyme(w, i)) //If it is a perfect rhyme, add it to the rhyme list
+                {
+                    rhymes.add(r);
+                }
             }
         }
         return rhymes;
@@ -100,9 +118,12 @@ public class WordList extends HashSet<Word> {
         WordList rhymes = new WordList();
         for(Word r : this)
         {
-            if(r.isHalfRhyme(w, i))
+            if(r.getVowelCount() >= i)
             {
-                rhymes.add(r);
+                if(r.isHalfRhyme(w, i)) //If it is a perfect rhyme, add it to the rhyme list
+                {
+                    rhymes.add(r);
+                }
             }
         }
         return rhymes;

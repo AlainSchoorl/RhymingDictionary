@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 public class Phoneme {
     private String p;
-    private  ArrayList<String> groups;
+    private ArrayList<String> groups;
         public Phoneme(String phoneme)
         {
             phoneme = p;
