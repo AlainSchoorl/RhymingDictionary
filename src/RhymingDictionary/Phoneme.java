@@ -15,7 +15,8 @@ public class Phoneme {
     private ArrayList<String> groups;
         public Phoneme(String phoneme)
         {
-            phoneme = p;
+            p = phoneme;
+            groups = new ArrayList();
             groups.add("B"); //0 Plosive start
             groups.add("D"); //1
             groups.add("G"); //2

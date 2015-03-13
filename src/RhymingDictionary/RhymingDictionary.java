@@ -41,7 +41,7 @@ public class RhymingDictionary extends javax.swing.JFrame {
             File file = new File("Library.txt");
             Scanner in = new Scanner(file);
             String s;
-            Phoneme p;
+            String p;
             while (in.hasNextLine())
             {
                 String line = in.nextLine();
@@ -50,8 +50,8 @@ public class RhymingDictionary extends javax.swing.JFrame {
                 ArrayList<Phoneme> a = new ArrayList();
                 while(lineBreaker.hasNext())
                 {
-                    p = new Phoneme(lineBreaker.next());
-                    a.add(p);
+                    p = new String(lineBreaker.next());                  
+                    a.add(new Phoneme(p));
                 }
                 fullList.add(new Word(s, a));
             }
@@ -247,7 +247,22 @@ public class RhymingDictionary extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        String word = new String(jTextField1.getText());
+        Word search = fullList.getWord(word);
+        System.out.println("Word found");
+        System.out.println(search.getString());
+        WordList results = fullList.getPerfectRhymes(search, 1);
+        System.out.println(fullList);
+        /**for(Word f : results)
+        {
+            System.out.println("Print attempt");
+            System.out.print(f.getString()+ " ");
+            for(Phoneme c : f.getPhonemes())
+            {
+                System.out.print("-" + c.getPhoneme());
+            }
+            System.out.print("\n");
+        }   */              
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

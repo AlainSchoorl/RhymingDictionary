@@ -1,0 +1,22 @@
+JvmtiExport can_access_local_variables 0
+JvmtiExport can_hotswap_or_post_breakpoint 0
+JvmtiExport can_post_on_exceptions 0
+# 123 ciObject found
+instanceKlass javax/swing/plaf/basic/BasicComboBoxUI$DefaultKeySelectionManager
+instanceKlass javax/swing/JComboBox$KeySelectionManager
+instanceKlass javax/swing/plaf/basic/BasicComboBoxUI$Handler
+instanceKlass javax/swing/plaf/synth/SynthComboBoxUI$EditorFocusHandler
+instanceKlass javax/swing/plaf/basic/BasicComboBoxEditor
+instanceKlass javax/swing/ComboBoxEditor
+instanceKlass java/awt/event/ComponentAdapter
+instanceKlass javax/swing/plaf/basic/BasicComboPopup$Handler
+instanceKlass javax/swing/plaf/basic/BasicListUI$Handler
+instanceKlass javax/swing/ListCellRenderer
+instanceKlass javax/swing/DefaultListSelectionModel
+instanceKlass javax/swing/ListSelectionModel
+instanceKlass java/awt/event/KeyAdapter
+instanceKlass java/awt/event/MouseMotionAdapter
+instanceKlass javax/swing/ToolTipManager$stillInsideTimerAction
+instanceKlass javax/swing/ToolTipManager$outsideTimerAction
+instanceKlass javax/swing/ToolTipManager$insideTimerAction
+instanceKlass java/awt/event/FocusAdapter
