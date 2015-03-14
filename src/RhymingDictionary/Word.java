@@ -12,9 +12,9 @@ import java.util.*;
  */
 public class Word {
     private String word;
-    private ArrayList<Phoneme> phonemes;
+    private PhonemeList phonemes;
         
-        public Word(String w, ArrayList<Phoneme> p)
+        public Word(String w, PhonemeList p)
         {
             word = w;
             phonemes = p;
@@ -32,7 +32,7 @@ public class Word {
     {
         return word.equalsIgnoreCase(s); //If the given string matches the string of the word, ignoring case, return true.
     }
-    public ArrayList<Phoneme> getPhonemes()
+    public PhonemeList getPhonemes()
     {
         return phonemes;
     }
@@ -58,7 +58,7 @@ public class Word {
     }
     public Phoneme getVowel(int n) //returns the last vowel in the word
     {
-        ArrayList<Phoneme> x = new ArrayList(); //creates an empty list of Phonemes
+        PhonemeList x = new PhonemeList(); //creates an empty list of Phonemes
         for(int i = phonemes.size()-1; i >= 0; i--) //Starts looking from the back of the word
         {
             if(phonemes.get(i).isVowel())
@@ -76,9 +76,9 @@ public class Word {
                           //When searching through words for multi-syllable rhymes, check their Vowel Count before bothering to check if any vowels rhyme.
                           //Essentially, there should be no way for getSecondVowel to return error
     }
-    public ArrayList<Phoneme> getConsonants(int n) //Returns a list of any consonants between the n to last vowel and the one after it, if any.
+    public PhonemeList getConsonants(int n) //Returns a list of any consonants between the n to last vowel and the one after it, if any.
     {
-        ArrayList<Phoneme> x = new ArrayList(); //creates an empty list of Phonemes for the consonants
+        PhonemeList x = new PhonemeList(); //creates an empty list of Phonemes for the consonants
         int vowelCounter = 0; //And a counter for the vowels
         for(int i = phonemes.size()-1; i >= 0; i--) //Starts looking from the back of the word
         {
@@ -106,14 +106,14 @@ public class Word {
         {
             if (i==syl) // if the final vowel group is being checked, the consonant group before it must not match, hence the seperate condition.
             {
-                if((!this.getConsonants(i).equals(w.getConsonants(i)))||(!this.getVowel(i).isEqual(w.getVowel(i)))||(this.getConsonants(i+1).equals(w.getConsonants(i+1))))
+                if((!this.getConsonants(i).equals(w.getConsonants(i)))||(!this.getVowel(i).equals(w.getVowel(i)))||(this.getConsonants(i+1).equals(w.getConsonants(i+1))))
                 {
                     return false;
                 }
             }
             else // in all other cases the vowels and the consonants after it are checked to ensure to are the same.
             {
-                if((!this.getConsonants(i).equals(w.getConsonants(i)))||(!this.getVowel(i).isEqual(w.getVowel(i))))
+                if((!this.getConsonants(i).equals(w.getConsonants(i)))||(!this.getVowel(i).equals(w.getVowel(i))))
                 {
                     return false;
                 }
@@ -127,14 +127,14 @@ public class Word {
         {
             if (i==syl) // if the final vowel group is being checked, the consonant group before it be family.
             {
-                if(!this.isFamily(w.getConsonants(i), i)||(!this.getVowel(i).isEqual(w.getVowel(i)))||(this.getConsonants(i+1).equals(w.getConsonants(i+1))))
+                if(!this.isFamily(w.getConsonants(i), i)||(!this.getVowel(i).equals(w.getVowel(i)))||(this.getConsonants(i+1).equals(w.getConsonants(i+1))))
                 {
                     return false;
                 }
             }
             else // in all other cases the vowels and the consonants after it are checked to ensure to are the same.
             {
-                if(!this.isFamily(w.getConsonants(i), i)||(!this.getVowel(i).isEqual(w.getVowel(i))))
+                if(!this.isFamily(w.getConsonants(i), i)||(!this.getVowel(i).equals(w.getVowel(i))))
                 {
                     return false;
                 }
@@ -142,9 +142,9 @@ public class Word {
         }
         return true; // If all checks are passed, the words are family rhymes.
     }
-    public Boolean isFamily(ArrayList<Phoneme> c, int n) // Returns true if two phenome list meet the conditions for family.
+    public Boolean isFamily(PhonemeList c, int n) // Returns true if two phenome list meet the conditions for family.
     {
-        ArrayList<Phoneme> p = this.getConsonants(n); // Grab the correct consonant group from the local word and store it in p.
+        PhonemeList p = this.getConsonants(n); // Grab the correct consonant group from the local word and store it in p.
                 
         if(c.size() != p.size()) // Check to make sure the two consonant groups have the same number of elements.
         {
@@ -153,7 +153,7 @@ public class Word {
         int family = 0; // Iniate a counter to see how many elements are not exact matches, but in the same family.
         for(int i=0;i<c.size();i++) // run through all the elements in the consonant groups.
         {
-            if(!c.get(i).isEqual(p.get(i))) // First check if the consonants in the same position are not the same.
+            if(!c.get(i).equals(p.get(i))) // First check if the consonants in the same position are not the same.
             {
                 if(c.get(i).isFamily(p.get(i))) // If they are not the same, but they belong to the same family, increase the family counter.
                 {
@@ -172,7 +172,7 @@ public class Word {
     {
         for(int i = 1; i <= syl;i++) // runs through the number of syllable groups as specified by the input.
         {
-            if(!this.getVowel(i).isEqual(w.getVowel(i))) //Check to see if the vowels are the same.
+            if(!this.getVowel(i).equals(w.getVowel(i))) //Check to see if the vowels are the same.
             {
                 return false;
             }
@@ -196,7 +196,7 @@ public class Word {
         {
             if (i==syl) // if the final vowel group is being checked, the consonant group before it be family.
             {
-                if((!this.getConsonants(i).equals(w.getConsonants(i)))||(!this.getConsonants(i+1).get(0).equals(w.getConsonants(i+1).get(0)))) // Checks the sylth consonant and a single one beyond that.
+                if((!this.getConsonants(i).equals(w.getConsonants(i)))||(!this.getConsonants(i+1).equals(w.getConsonants(i+1)))) // Checks the sylth consonant and a single one beyond that.
                 {
                     return false;
                 }
@@ -217,21 +217,25 @@ public class Word {
         {
             return false;
         }
-        if(this.getConsonants(1).indexOf(w.getConsonants(1).get(0))==-1) // Makes sure the first element of the shorter group exists in the longer group
+        if(w.getConsonants(1).size()!=0)
         {
-            return false;
-        }
-        if(w.getConsonants(1).size()!=1) // Knowing that the first element exists, only runs the remaining checks if there are more elements in the shorter group
-        {
-            for(int i = 1; i < w.getConsonants(1).size(); i++) // runs through the remaining elements in the shorter group
+            if(this.getConsonants(1).indexOf(w.getConsonants(1).get(0))==-1) // Makes sure the first element of the shorter group exists in the longer group
             {
-                if(this.getConsonants(1).indexOf(w.getConsonants(1).get(i))==-1) // Checks if the next element of the shorter group also exist
+                return false;
+            }
+            if(w.getConsonants(1).size()!=1) // Knowing that the first element exists, only runs the remaining checks if there are more elements in the shorter group
+            {
+                for(int i = 1; i < w.getConsonants(1).size(); i++) // runs through the remaining elements in the shorter group
                 {
-                    return false;
-                }
-                if((this.getConsonants(1).indexOf(w.getConsonants(1).get(i))!=(this.getConsonants(1).indexOf(w.getConsonants(1).get(i-1))+1))) // Check if the next element appears right after the previous element.
-                {
-                    return false;
+
+                    if(this.getConsonants(1).indexOf(w.getConsonants(1).get(i))==-1) // Checks if the next element of the shorter group also exist
+                    {
+                        return false;
+                    }
+                    if((this.getConsonants(1).indexOf(w.getConsonants(1).get(i))!=(this.getConsonants(1).indexOf(w.getConsonants(1).get(i-1))+1))) // Check if the next element appears right after the previous element.
+                    {
+                        return false;
+                    }
                 }
             }
         }
@@ -254,22 +258,27 @@ public class Word {
     public Boolean isSubtractiveRhyme(Word w, int syl) // Here the local word is meant to be the subtractive rhyme and hence should be the shorter group
     {   // This first section is the same as the isAdditiveRhyme function except all instances of "w" and "this" have been swapped.
         if(w.getConsonants(1).size()<=this.getConsonants(1).size()) // Check that returns false if the base word does not end with a shorter consonance group
-            return false;
-        if(w.getConsonants(1).indexOf(this.getConsonants(1).get(0))==-1) // Makes sure the first element of the shorter group exists in the longer group
         {
             return false;
         }
-        if(this.getConsonants(1).size()!=1) // Knowing that the first element exists, only runs the remaining checks if there are more elements in the shorter group
+        if(this.getConsonants(1).size()!=0)
         {
-            for(int i = 1; i < this.getConsonants(1).size(); i++) // runs through the remaining elements in the shorter group
+            if(w.getConsonants(1).indexOf(this.getConsonants(1).get(0))==-1) // Makes sure the first element of the shorter group exists in the longer group
             {
-                if(w.getConsonants(1).indexOf(this.getConsonants(1).get(i))==-1) // Checks if the next element of the shorter group also exist
+                return false;
+            }
+            if(this.getConsonants(1).size()!=1) // Knowing that the first element exists, only runs the remaining checks if there are more elements in the shorter group
+            {
+                for(int i = 1; i < this.getConsonants(1).size(); i++) // runs through the remaining elements in the shorter group
                 {
-                    return false;
-                }
-                if((w.getConsonants(1).indexOf(this.getConsonants(1).get(i))!=(w.getConsonants(1).indexOf(this.getConsonants(1).get(i-1))+1))) // Check if the next element appears right after the previous element.
-                {
-                    return false;
+                    if(w.getConsonants(1).indexOf(this.getConsonants(1).get(i))==-1) // Checks if the next element of the shorter group also exist
+                    {
+                        return false;
+                    }
+                    if((w.getConsonants(1).indexOf(this.getConsonants(1).get(i))!=(w.getConsonants(1).indexOf(this.getConsonants(1).get(i-1))+1))) // Check if the next element appears right after the previous element.
+                    {
+                        return false;
+                    }
                 }
             }
         }
@@ -291,8 +300,8 @@ public class Word {
     }
     /**public Boolean isSubtractiveRhyme(Word w, int syl) // Slightly different implementation. The local word is the shorter one.
     {
-        ArrayList<Phoneme> wCons = w.getConsonants(1); //These get called a few times
-        ArrayList<Phoneme> tCons = this.getConsonants(1);
+        PhonemeList wCons = w.getConsonants(1); //These get called a few times
+        PhonemeList tCons = this.getConsonants(1);
         if((tCons.size() >= wCons.size())) //Check to see if the local word is shorter
         {
             return false;
@@ -338,8 +347,8 @@ public class Word {
     }
     public Boolean isAdditiveRhyme(Word w, int syl) // Subtractive Rhyme but w's and this' have been switched.
     {
-        ArrayList<Phoneme> wCons = w.getConsonants(1); //These get called a few times
-        ArrayList<Phoneme> tCons = this.getConsonants(1);
+        PhonemeList wCons = w.getConsonants(1); //These get called a few times
+        PhonemeList tCons = this.getConsonants(1);
         if((wCons.size() >= tCons.size())) //Check to see if the local word is shorter
         {
             return false;

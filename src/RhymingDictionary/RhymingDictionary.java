@@ -47,7 +47,7 @@ public class RhymingDictionary extends javax.swing.JFrame {
                 String line = in.nextLine();
                 Scanner lineBreaker = new Scanner(line);
                 s = new String(lineBreaker.next());
-                ArrayList<Phoneme> a = new ArrayList();
+                PhonemeList a = new PhonemeList();
                 while(lineBreaker.hasNext())
                 {
                     p = new String(lineBreaker.next());                  
@@ -74,16 +74,16 @@ public class RhymingDictionary extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jTextField1 = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        jCheckBox3 = new javax.swing.JCheckBox();
-        jCheckBox4 = new javax.swing.JCheckBox();
-        jCheckBox5 = new javax.swing.JCheckBox();
-        jCheckBox6 = new javax.swing.JCheckBox();
-        jCheckBox7 = new javax.swing.JCheckBox();
+        perfectRhymeBox = new javax.swing.JCheckBox();
+        familyRhymeBox = new javax.swing.JCheckBox();
+        additiveRhymeBox = new javax.swing.JCheckBox();
+        subtractiveRhymeBox = new javax.swing.JCheckBox();
+        assonanceRhymeBox = new javax.swing.JCheckBox();
+        halfRhymeBox = new javax.swing.JCheckBox();
+        consonanceRhymeBox = new javax.swing.JCheckBox();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jComboBox1 = new javax.swing.JComboBox();
+        outputArea = new javax.swing.JTextArea();
+        syllableNumberMenu = new javax.swing.JComboBox();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -100,50 +100,50 @@ public class RhymingDictionary extends javax.swing.JFrame {
 
         jLabel8.setText("Rhyming Syllables");
 
-        jCheckBox1.setBackground(new java.awt.Color(0, 255, 255));
-        jCheckBox1.setText("Perfect Rhymes");
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+        perfectRhymeBox.setBackground(new java.awt.Color(0, 255, 255));
+        perfectRhymeBox.setText("Perfect Rhymes");
+        perfectRhymeBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
+                perfectRhymeBoxActionPerformed(evt);
             }
         });
 
-        jCheckBox2.setBackground(new java.awt.Color(0, 255, 255));
-        jCheckBox2.setText("Family Rhymes");
+        familyRhymeBox.setBackground(new java.awt.Color(0, 255, 255));
+        familyRhymeBox.setText("Family Rhymes");
 
-        jCheckBox3.setBackground(new java.awt.Color(0, 255, 255));
-        jCheckBox3.setText("Additive Rhymes");
+        additiveRhymeBox.setBackground(new java.awt.Color(0, 255, 255));
+        additiveRhymeBox.setText("Additive Rhymes");
 
-        jCheckBox4.setBackground(new java.awt.Color(0, 255, 255));
-        jCheckBox4.setText("Subtractive Rhymes");
+        subtractiveRhymeBox.setBackground(new java.awt.Color(0, 255, 255));
+        subtractiveRhymeBox.setText("Subtractive Rhymes");
 
-        jCheckBox5.setBackground(new java.awt.Color(0, 255, 255));
-        jCheckBox5.setText("Assonance Rhymes");
-        jCheckBox5.addActionListener(new java.awt.event.ActionListener() {
+        assonanceRhymeBox.setBackground(new java.awt.Color(0, 255, 255));
+        assonanceRhymeBox.setText("Assonance Rhymes");
+        assonanceRhymeBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox5ActionPerformed(evt);
+                assonanceRhymeBoxActionPerformed(evt);
             }
         });
 
-        jCheckBox6.setBackground(new java.awt.Color(0, 255, 255));
-        jCheckBox6.setText("Half-Rhymes");
+        halfRhymeBox.setBackground(new java.awt.Color(0, 255, 255));
+        halfRhymeBox.setText("Half-Rhymes");
 
-        jCheckBox7.setBackground(new java.awt.Color(0, 255, 255));
-        jCheckBox7.setText("Consonace Rhymes");
-        jCheckBox7.addActionListener(new java.awt.event.ActionListener() {
+        consonanceRhymeBox.setBackground(new java.awt.Color(0, 255, 255));
+        consonanceRhymeBox.setText("Consonance Rhymes");
+        consonanceRhymeBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox7ActionPerformed(evt);
+                consonanceRhymeBoxActionPerformed(evt);
             }
         });
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        outputArea.setColumns(20);
+        outputArea.setRows(5);
+        jScrollPane1.setViewportView(outputArea);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        syllableNumberMenu.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3" }));
+        syllableNumberMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                syllableNumberMenuActionPerformed(evt);
             }
         });
 
@@ -161,21 +161,20 @@ public class RhymingDictionary extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jCheckBox1)
+                    .addComponent(perfectRhymeBox)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCheckBox2)
-                    .addComponent(jCheckBox3)
-                    .addComponent(jCheckBox4)
-                    .addComponent(jCheckBox5)
-                    .addComponent(jCheckBox6)
+                    .addComponent(familyRhymeBox)
+                    .addComponent(additiveRhymeBox)
+                    .addComponent(subtractiveRhymeBox)
+                    .addComponent(assonanceRhymeBox)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel8))
-                            .addComponent(jCheckBox7))))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(syllableNumberMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jLabel8)))
+                    .addComponent(consonanceRhymeBox)
+                    .addComponent(halfRhymeBox))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 852, Short.MAX_VALUE)
                 .addContainerGap())
@@ -189,23 +188,23 @@ public class RhymingDictionary extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jCheckBox1)
+                        .addComponent(perfectRhymeBox)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jCheckBox2)
+                        .addComponent(familyRhymeBox)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jCheckBox3)
+                        .addComponent(additiveRhymeBox)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jCheckBox4)
+                        .addComponent(subtractiveRhymeBox)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jCheckBox5)
+                        .addComponent(assonanceRhymeBox)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jCheckBox6)
+                        .addComponent(halfRhymeBox)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jCheckBox7)
+                        .addComponent(consonanceRhymeBox, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(syllableNumberMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1)
                         .addGap(0, 285, Short.MAX_VALUE)))
@@ -230,39 +229,85 @@ public class RhymingDictionary extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+    private void perfectRhymeBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_perfectRhymeBoxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
+    }//GEN-LAST:event_perfectRhymeBoxActionPerformed
 
-    private void jCheckBox5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox5ActionPerformed
+    private void assonanceRhymeBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assonanceRhymeBoxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox5ActionPerformed
+    }//GEN-LAST:event_assonanceRhymeBoxActionPerformed
 
-    private void jCheckBox7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox7ActionPerformed
+    private void consonanceRhymeBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consonanceRhymeBoxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox7ActionPerformed
+    }//GEN-LAST:event_consonanceRhymeBoxActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void syllableNumberMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_syllableNumberMenuActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_syllableNumberMenuActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String word = new String(jTextField1.getText());
         Word search = fullList.getWord(word);
         System.out.println("Word found");
-        System.out.println(search.getString());
-        WordList results = fullList.getPerfectRhymes(search, 1);
-        System.out.println(fullList);
-        /**for(Word f : results)
+        WordList results = new WordList();
+        int syl = syllableNumberMenu.getSelectedIndex()+1;
+        if (search.getVowelCount()< syl)
         {
-            System.out.println("Print attempt");
+            System.out.println("Given word is shorter than specified number of syllables.");
+            System.out.println("Number of syllables adjusted to length of word.");
+            syl = search.getVowelCount();
+        }
+        if(perfectRhymeBox.isSelected())
+        {
+            System.out.println("Finding perfect rhymes.");
+            results.addAll(fullList.getPerfectRhymes(search, syl));
+            System.out.println("Perfect rhymes found.");
+        }
+        if(familyRhymeBox.isSelected())
+        {
+            System.out.println("Finding family rhymes.");
+            results.addAll(fullList.getFamilyRhymes(search, syl));
+            System.out.println("Family rhymes found.");
+        }
+        if(additiveRhymeBox.isSelected())
+        {
+            System.out.println("Finding additive rhymes.");
+            results.addAll(fullList.getAdditiveRhymes(search, syl));
+            System.out.println("Additive rhymes found.");
+        }
+        if(subtractiveRhymeBox.isSelected())
+        {
+            System.out.println("Finding substractive rhymes.");
+            results.addAll(fullList.getSubtractiveRhymes(search, syl));
+            System.out.println("Subtractive rhymes found.");
+        }
+        if(assonanceRhymeBox.isSelected())
+        {
+            System.out.println("Finding assonance rhymes.");
+            results.addAll(fullList.getAssonanceRhymes(search, syl));
+            System.out.println("Assonance rhymes found.");
+        }
+        if(halfRhymeBox.isSelected())
+        {
+            System.out.println("Finding half-rhymes.");
+            results.addAll(fullList.getHalfRhymes(search, syl));
+            System.out.println("Half-rhymes found.");
+        }
+        if(consonanceRhymeBox.isSelected())
+        {
+            System.out.println("Finding consonance rhymes.");
+            results.addAll(fullList.getConsonanceRhymes(search, syl));
+            System.out.println("Consonance rhymes found.");
+        }
+        for(Word f : results)
+        {
             System.out.print(f.getString()+ " ");
             for(Phoneme c : f.getPhonemes())
             {
                 System.out.print("-" + c.getPhoneme());
             }
             System.out.print("\n");
-        }   */              
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -301,19 +346,19 @@ public class RhymingDictionary extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox additiveRhymeBox;
+    private javax.swing.JCheckBox assonanceRhymeBox;
+    private javax.swing.JCheckBox consonanceRhymeBox;
+    private javax.swing.JCheckBox familyRhymeBox;
+    private javax.swing.JCheckBox halfRhymeBox;
     private javax.swing.JButton jButton1;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox3;
-    private javax.swing.JCheckBox jCheckBox4;
-    private javax.swing.JCheckBox jCheckBox5;
-    private javax.swing.JCheckBox jCheckBox6;
-    private javax.swing.JCheckBox jCheckBox7;
-    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextArea outputArea;
+    private javax.swing.JCheckBox perfectRhymeBox;
+    private javax.swing.JCheckBox subtractiveRhymeBox;
+    private javax.swing.JComboBox syllableNumberMenu;
     // End of variables declaration//GEN-END:variables
 }
