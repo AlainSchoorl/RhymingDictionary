@@ -8,7 +8,8 @@ package RhymingDictionary;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-import java.util.ArrayList;
+import java.util.Vector;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -62,6 +63,37 @@ public class RhymingDictionary extends javax.swing.JFrame {
         }
     }
 
+    public void printResults(WordList wl)
+    {
+        int i = 0;
+        //String s = "";
+        String s;
+        String format = "|%1$-30s|%2$-30s|\n";
+        outputArea.setText("Results: \n");
+        for(Word w : wl)
+        {
+            s = w.getString();
+            //s = s + w.getString() + "\t";
+            int size = w.getPhonemes().size();
+            String s2 = "";
+            for(int j = 0; size > j ;j++)
+            {
+                s2 = s2 + w.getPhonemes().get(j).getPhoneme();
+                if(j!=(size-1))
+                {
+                    if(w.getPhonemes().get(j).isVowel()||(!w.getPhonemes().get(j).isVowel()&&w.getPhonemes().get(j+1).isVowel()))
+                    {
+                        s2 = s2 + "-";
+                    }
+                }                
+            }
+            //s = s + "\n";
+            String out[] = { s, s2 };
+            outputArea.append(String.format(format, (Object[]) out));
+            i++;
+        }
+        //outputArea.setText(s);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -81,10 +113,10 @@ public class RhymingDictionary extends javax.swing.JFrame {
         assonanceRhymeBox = new javax.swing.JCheckBox();
         halfRhymeBox = new javax.swing.JCheckBox();
         consonanceRhymeBox = new javax.swing.JCheckBox();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        outputArea = new javax.swing.JTextArea();
         syllableNumberMenu = new javax.swing.JComboBox();
         jButton1 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        outputArea = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(204, 204, 255));
@@ -136,10 +168,6 @@ public class RhymingDictionary extends javax.swing.JFrame {
             }
         });
 
-        outputArea.setColumns(20);
-        outputArea.setRows(5);
-        jScrollPane1.setViewportView(outputArea);
-
         syllableNumberMenu.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3" }));
         syllableNumberMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -154,6 +182,11 @@ public class RhymingDictionary extends javax.swing.JFrame {
             }
         });
 
+        outputArea.setColumns(20);
+        outputArea.setFont(new java.awt.Font("Monospaced", 1, 13)); // NOI18N
+        outputArea.setRows(5);
+        jScrollPane1.setViewportView(outputArea);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -161,11 +194,6 @@ public class RhymingDictionary extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(perfectRhymeBox)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(familyRhymeBox)
-                    .addComponent(additiveRhymeBox)
-                    .addComponent(subtractiveRhymeBox)
                     .addComponent(assonanceRhymeBox)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -174,9 +202,14 @@ public class RhymingDictionary extends javax.swing.JFrame {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(jLabel8)))
                     .addComponent(consonanceRhymeBox)
-                    .addComponent(halfRhymeBox))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 852, Short.MAX_VALUE)
+                    .addComponent(halfRhymeBox)
+                    .addComponent(perfectRhymeBox)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(familyRhymeBox)
+                    .addComponent(additiveRhymeBox)
+                    .addComponent(subtractiveRhymeBox))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 864, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -308,6 +341,7 @@ public class RhymingDictionary extends javax.swing.JFrame {
             }
             System.out.print("\n");
         }
+        printResults(results);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
