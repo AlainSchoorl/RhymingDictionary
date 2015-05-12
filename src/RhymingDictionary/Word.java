@@ -211,7 +211,7 @@ public class Word {
         }
         return true; // If all the consonants are identical and all the vowels similar, returns true. At the moment doesn't care for consonants beyond the last vowel.
     }
-    public Boolean isAdditiveRhyme(Word w, int syl) // Here the local word is meant to be the additive rhyme and hence should be the longer group
+    /**public Boolean isAdditiveRhyme(Word w, int syl) // Here the local word is meant to be the additive rhyme and hence should be the longer group
     {
         if(this.getConsonants(1).size()<=w.getConsonants(1).size()) // Check that returns false if the base word does not end with a longer consonance group
         {
@@ -297,8 +297,8 @@ public class Word {
             }
         }
         return true; // If all checks pass the base word is a subtractive rhyme for the given word.
-    }
-    /**public Boolean isSubtractiveRhyme(Word w, int syl) // Slightly different implementation. The local word is the shorter one.
+    }*/
+    public Boolean isSubtractiveRhyme(Word w, int syl) // Slightly different implementation. The local word is the shorter one.
     {
         PhonemeList wCons = w.getConsonants(1); //These get called a few times
         PhonemeList tCons = this.getConsonants(1);
@@ -306,7 +306,7 @@ public class Word {
         {
             return false;
         }
-        if(!wCons.isEmpty()) //If the other word is empty, then the following checks are already satisified and should be skipped to avoid a NullPointerException
+        if(!wCons.isEmpty()&& !tCons.isEmpty()) //If the other word is empty, then the following checks are already satisified and should be skipped to avoid a NullPointerException
         {
             if(tCons.get(0).equals(wCons.get(0))) //If the first consonants match, start looking from the front
             {
@@ -333,12 +333,12 @@ public class Word {
         {
             if(i==syl) // If the final syllable has been reached different conditions on the consonants apply
             {
-                if((this.getConsonants(i+1).equals(w.getConsonants(i+1)))||(!this.getVowel(i).isEqual(w.getVowel(i)))) // Check that all conditions for the rhyme apply
+                if((this.getConsonants(i+1).equals(w.getConsonants(i+1)))||(!this.getVowel(i).equals(w.getVowel(i)))) // Check that all conditions for the rhyme apply
                 {
                     return false;
                 }
             }
-            else if((this.getConsonants(i+1).equals(w.getConsonants(i+1)))||(!this.getVowel(i).isEqual(w.getVowel(i)))) // Check that all conditions for the rhyme apply
+            else if((this.getConsonants(i+1).equals(w.getConsonants(i+1)))||(!this.getVowel(i).equals(w.getVowel(i)))) // Check that all conditions for the rhyme apply
             {
                 return false;
             }
@@ -353,7 +353,7 @@ public class Word {
         {
             return false;
         }
-        if(!tCons.isEmpty()) //If the local word is empty, the following checks are already satisified and should be skipped to avoid a NullPointerException
+        if(!tCons.isEmpty() && !wCons.isEmpty()) //If the local word is empty, the following checks are already satisified and should be skipped to avoid a NullPointerException
         {
             if(wCons.get(0).equals(tCons.get(0))) //If the first consonants match, start looking from the front
             {
@@ -380,16 +380,16 @@ public class Word {
         {
             if(i==syl) // If the final syllable has been reached different conditions on the consonants apply
             {
-                if((w.getConsonants(i+1).equals(this.getConsonants(i+1)))||(!w.getVowel(i).isEqual(this.getVowel(i)))) // Check that all conditions for the rhyme apply
+                if((w.getConsonants(i+1).equals(this.getConsonants(i+1)))||(!w.getVowel(i).equals(this.getVowel(i)))) // Check that all conditions for the rhyme apply
                 {
                     return false;
                 }
             }
-            else if((w.getConsonants(i+1).equals(this.getConsonants(i+1)))||(!w.getVowel(i).isEqual(this.getVowel(i)))) // Check that all conditions for the rhyme apply
+            else if((w.getConsonants(i+1).equals(this.getConsonants(i+1)))||(!w.getVowel(i).equals(this.getVowel(i)))) // Check that all conditions for the rhyme apply
             {
                 return false;
             }
         }
         return true; // If all checks are passed, w is an additive rhyme to the local word.
-    }*/    
+    }    
 }
