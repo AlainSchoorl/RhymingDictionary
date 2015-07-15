@@ -65,6 +65,10 @@ public class Phoneme {
         return "AEIOUaeiou".indexOf(z) != -1; //If this first character is not in this String of vowels indexOf returns -1, 
                                               //so any output other than -1 means the character is a vowel.
     }
+    public Boolean strictEquals(Phoneme b)
+    {
+        return p.equals(b.getPhoneme());
+    }
     public Boolean equals(Phoneme b)
     {
         String pShort = p.substring(0, Math.min(p.length(), 2));  //The two phonemes are shortened to a maximum of two characters, this is to ignore vowel stress

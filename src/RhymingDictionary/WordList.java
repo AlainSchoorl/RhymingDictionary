@@ -23,6 +23,21 @@ public class WordList extends HashSet<Word> {
         return null; // Need to find something to return if the word isn't in our dictionary.
     }
     
+    public WordList getCustomRhymes(Word w, int i)
+    {
+        WordList rhymes = new WordList(); //Creates empty wordlist (I hope)
+        for(Word r : this) //For every word in the list
+        {
+            if(r.getVowelCount() >= i)
+            {
+                if(r.isCustomRhyme(w, i)) //If it is a perfect rhyme, add it to the rhyme list
+                {
+                    rhymes.add(r);
+                }
+            }
+        }
+        return rhymes;
+    }
     public WordList getPerfectRhymes(Word w, int i)
     {
         WordList rhymes = new WordList(); //Creates empty wordlist (I hope)

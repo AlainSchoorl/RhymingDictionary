@@ -100,6 +100,17 @@ public class Word {
         }
         return x; //if one or fewer vowels are found, the list is still returned.
     }
+    public Boolean isCustomRhyme(Word w, int syl)
+    {
+        for(int i = 1; i <= syl;i++) // runs through the number of syllable groups as specified by the input.
+        {
+            if(!this.getVowel(i).strictEquals(w.getVowel(i))) //Check to see if the vowels are the same.
+            {
+                return false;
+            }
+        }
+        return true; // If all the vowels are identical, the words are assonance rhymes. This also returns perfect rhymes.
+    }
     public Boolean isPerfectRhyme(Word w, int syl) // Returns true if the base word and given word meet the conditions for perfect rhyme
     {
         for(int i = 1; i <= syl;i++) // runs through the number of syllable groups as specified by the input.
